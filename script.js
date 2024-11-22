@@ -20,7 +20,7 @@ document.getElementById("sollicitatie-form").addEventListener("submit", function
     console.log('Gegevens die naar Discord worden verzonden:', message);
 
     // Verstuur de gegevens naar je Discord Webhook URL
-    fetch("https://discord.com/api/webhooks/1308928837358456883/l52rdGTRcNZNnZRQXDctJG9UG8J-7gD8AWL4ZmPlipWFWXlDlioPk2E__hVIQSXqPuHu", {
+    fetch("https://discord.com/api/webhooks/1309594433964216350/09DNDUXwB_nZ7_9nhXZVypvLLaTisEaQBVS6p8vrwmZrRHIttzOF-Y8d4I5ITQXVl68o", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
