@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I8 Formulier</title>
+    <link rel="stylesheet" href="/agenten/style-werknemers.css">
+    <link rel="icon" href="/spark.png" type="image/x-icon">
+    <script>
+        // Functie om het formulier te tonen bij het klikken op de knop
+        function showForm() {
+            document.getElementById('i8-form-container').style.display = 'block';
+            document.getElementById('show-form-button').style.display = 'none'; // Verberg de knop na klikken
+        }
+
+        // Functie om extra velden zichtbaar te maken afhankelijk van de geselecteerde optie
+        function toggleField(radioName, fieldId) {
+            const radioButtons = document.getElementsByName(radioName);
+            let field = document.getElementById(fieldId);
+            
+            // Zet de extra tekstvelden standaard op hidden
+            field.style.display = 'none';
+
+            // Kijk of een "Anders" radio button is geselecteerd
+            for (let i = 0; i < radioButtons.length; i++) {
+                if (radioButtons[i].value === "anders" && radioButtons[i].checked) {
+                    field.style.display = 'block'; // Toon het tekstveld als "Anders" is geselecteerd
+                }
+            }
+        }
+
+        // Functie om formuliergegevens naar Discord webhook te sturen
+        async function sendToDiscord(event) {
+            event.preventDefault(); // Voorkomt dat het formulier normaal wordt verzonden
+
+            // Haal formulierwaarden op
+            const naam = document.getElementById('naam').value;
+            const datum = document.getElementById('datum').value;
+            const plaats = document.getElementById('plaats').value;
+            const reden = document.getElementById('reden').value;
+            const geweldPersoon = document.querySelector('input[name="geweldPersoon"]:checked')?.value || '';
+            const geweldGoederen = document.querySelector('input[name="geweldGoederen"]:checked')?.value || '';
+            const letsels = document.querySelector('input[name="letsels"]:checked')?.value || '';
+            const officier = document.getElementById('officier').value;
+            const geweldsmiddelen = document.getElementById('geweldsmiddelen').value;
+            const bewijsmateriaal = document.getElementById('bewijsmateriaal').value;
+
+            // Haal de aanvullende "Anders" velden op (indien zichtbaar)
+            const geweldPersoonAnders = document.getElementById('geweldPersoonAndersField').style.display === 'block' ? document.getElementById('geweldPersoonAndersField').value : '';
+            const geweldGoederenAnders = document.getElementById('geweldGoederenAndersField').style.display === 'block' ? document.getElementById('geweldGoederenAndersField').value : '';
+            const letselsAnders = document.getElementById('letselsAndersField').style.display === 'block' ? document.getElementById('letselsAndersField').value : '';
+
+            // Bouw het bericht in een JSON formaat
+            const message = {
+                content: `**I8 Formulier Gegevens**\n\n**Naam:** ${naam}\n**Datum:** ${datum}\n**Plaats:** ${plaats}\n**Reden:** ${reden}\n\n**Geweld Tegen Persoon:** ${geweldPersoon} ${geweldPersoonAnders ? `- ${geweldPersoonAnders}` : ''}\n**Geweld Tegen Goederen:** ${geweldGoederen} ${geweldGoederenAnders ? `- ${geweldGoederenAnders}` : ''}\n**Letsel bij Betrokkenen:** ${letsels} ${letselsAnders ? `- ${letselsAnders}` : ''}\n\n**Naam Officier van Dienst:** ${officier}\n**Toegepaste Geweldsmiddelen:** ${geweldsmiddelen}\n**Bewijsmateriaal:** ${bewijsmateriaal}`
+            };
+
+            // Discord webhook URL (vervang dit door je eigen webhook URL)
+            const webhookUrl = 'https://discord.com/api/webhooks/1308953364759052300/tZAAeeOQr6GPmS8DT1YsavL3p0XpNIpXwp8zxJTySgXoLc6QoSNbV97MwxRP13BKi5fc';
+
+            // Verstuur de gegevens naar de Discord webhook
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(message)
+                });
+
+                // Check de response van de webhook
+                if (response.ok) {
+                    alert('Formulier succesvol verstuurd naar Discord!');
+                } else {
+                    alert('Er is een fout opgetreden bij het versturen van het formulier.');
+                }
+            } catch (error) {
+                console.error('Fout bij versturen naar Discord:', error);
+                alert('Er is een fout opgetreden bij het versturen van het formulier.');
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Navigatiebalk -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="vacatures.html">Interne Vacatures</a></li>
+                <li><a href="formulieren.html">Formulieren</a></li>
+                <li><a href="/index.html">Uitloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Formulieren sectie -->
+    <section id="formulieren">
+        <h1>I8 Formulier</h1>
+
+        <!-- Knop om het formulier te tonen -->
+        <button id="show-form-button" onclick="showForm()">Open I8 Formulier</button>
+
+        <!-- Het I8 formulier dat verborgen is totdat de knop wordt ingedrukt -->
+        <div id="i8-form-container" style="display: none;">
+            <h2>Vul het I8 Formulier in</h2>
+            <form onsubmit="sendToDiscord(event)">
+                <label for="naam">Naam:</label>
+                <input type="text" id="naam" name="naam" required><br><br>
+
+                <label for="datum">Datum van Geweldsaanwending:</label>
+                <input type="date" id="datum" name="datum" required><br><br>
+
+                <label for="plaats">Plaats van Omstandigheden (Postcode):</label>
+                <input type="text" id="plaats" name="plaats" required><br><br>
+
+                <label for="reden">Reden:</label>
+                <textarea id="reden" name="reden" required></textarea><br><br>
+
+                <label>Geweld Tegen Persoon:</label>
+                <input type="radio" id="geweldPersoonJa" name="geweldPersoon" value="ja" onclick="toggleField('geweldPersoon', 'geweldPersoonAndersField')"><label for="geweldPersoonJa">Ja</label>
+                <input type="radio" id="geweldPersoonNee" name="geweldPersoon" value="nee" onclick="toggleField('geweldPersoon', 'geweldPersoonAndersField')"><label for="geweldPersoonNee">Nee</label>
+                <input type="radio" id="geweldPersoonAnders" name="geweldPersoon" value="anders" onclick="toggleField('geweldPersoon', 'geweldPersoonAndersField')"><label for="geweldPersoonAnders">Anders</label>
+                <input type="text" id="geweldPersoonAndersField" placeholder="Geef meer uitleg" style="display: none;"><br><br>
+
+                <label>Geweld Tegen Goederen:</label>
+                <input type="radio" id="geweldGoederenJa" name="geweldGoederen" value="ja" onclick="toggleField('geweldGoederen', 'geweldGoederenAndersField')"><label for="geweldGoederenJa">Ja</label>
+                <input type="radio" id="geweldGoederenNee" name="geweldGoederen" value="nee" onclick="toggleField('geweldGoederen', 'geweldGoederenAndersField')"><label for="geweldGoederenNee">Nee</label>
+                <input type="radio" id="geweldGoederenAnders" name="geweldGoederen" value="anders" onclick="toggleField('geweldGoederen', 'geweldGoederenAndersField')"><label for="geweldGoederenAnders">Anders</label>
+                <input type="text" id="geweldGoederenAndersField" placeholder="Geef meer uitleg" style="display: none;"><br><br>
+
+                <label>Letsel bij Betrokkenen:</label>
+                <input type="radio" id="letselsJa" name="letsels" value="ja" onclick="toggleField('letsels', 'letselsAndersField')"><label for="letselsJa">Ja</label>
+                <input type="radio" id="letselsNee" name="letsels" value="nee" onclick="toggleField('letsels', 'letselsAndersField')"><label for="letselsNee">Nee</label>
+                <input type="radio" id="letselsAnders" name="letsels" value="anders" onclick="toggleField('letsels', 'letselsAndersField')"><label for="letselsAnders">Anders</label>
+                <input type="text" id="letselsAndersField" placeholder="Geef meer uitleg" style="display: none;"><br><br>
+
+                <label for="officier">Naam Officier van Dienst:</label>
+                <input type="text" id="officier" name="officier" required><br><br>
+
+                <label for="geweldsmiddelen">Toegepaste Geweldsmiddelen:</label>
+                <textarea id="geweldsmiddelen" name="geweldsmiddelen" required></textarea><br><br>
+
+                <label for="bewijsmateriaal">Bewijsmateriaal:</label>
+                <textarea id="bewijsmateriaal" name="bewijsmateriaal" required></textarea><br><br>
+
+                <button type="submit">Verstuur I8 Formulier</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
