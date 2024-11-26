@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politie Website - Contact</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="spark.png" type="image/x-icon">
+    <style>
+        /* Algemene stijl */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f0f0;
+        }
+        header nav ul {
+            list-style-type: none;
+            padding: 0;
+            background-color: #004080;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        header nav ul li {
+            display: inline;
+            margin: 10px;
+        }
+        header nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            display: inline-block;
+        }
+        header nav ul li a:hover {
+            background-color: #003060;
+            border-radius: 5px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .card {
+            width: 40%;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .form-container {
+            display: none;
+            margin-top: 30px;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="tel"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigatiebalk -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Welkom</a></li>
+                <li><a href="solliciteren.html">Solliciteren</a></li>
+                <li><a href="wetboek.html">Wetboek</a></li>
+                <li><a href="contact.html">Contacteren</a></li>
+                <li><a href="inloggen.html">Inloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Contactpagina</h1>
+    
+    <!-- Twee informatiebalken -->
+    <div class="container">
+        <div class="card" onclick="showForm('vraag')">
+            <h2>Vragen</h2>
+            <p>Heb je algemene vragen? Klik hier om contact op te nemen met ons team.</p>
+        </div>
+        <div class="card" onclick="showForm('klacht')">
+            <h2>Politieklachten</h2>
+            <p>Heb je een klacht over de politie? Klik hier om je klacht in te dienen.</p>
+        </div>
+    </div>
+
+    <!-- Formulier -->
+    <div id="form" class="form-container">
+        <form id="contactForm">
+            <label for="discordNaam">Discord Naam:</label>
+            <input type="text" id="discordNaam" name="discordNaam" required>
+
+            <label for="ingameNaam">Ingame Naam:</label>
+            <input type="text" id="ingameNaam" name="ingameNaam" required>
+
+            <label for="telefoonNummer">Telefoon Nummer:</label>
+            <input type="tel" id="telefoonNummer" name="telefoonNummer" required>
+
+            <label for="vraagKlacht">Vraag/Klacht:</label>
+            <textarea id="vraagKlacht" name="vraagKlacht" rows="5" required></textarea>
+
+            <label>
+                <input type="checkbox" id="inOverheidsDiscord" name="inOverheidsDiscord">
+                Ik zit in de overheids Discord
+            </label>
+
+            <button type="button" class="submit-btn" onclick="sendToDiscord()">Verzenden</button>
+        </form>
+    </div>
+
+    <script>
+        function showForm(type) {
+            document.getElementById('form').style.display = 'block';
+            const vraagKlachtLabel = document.querySelector('label[for="vraagKlacht"]');
+            vraagKlachtLabel.innerText = (type === 'vraag') ? 'Jouw Vraag:' : 'Jouw Klacht:';
+        }
+
+        function sendToDiscord() {
+    const webhookURL = "https://discordapp.com/api/webhooks/1308953364759052300/tZAAeeOQr6GPmS8DT1YsavL3p0XpNIpXwp8zxJTySgXoLc6QoSNbV97MwxRP13BKi5fc";
+
+    const discordNaam = document.getElementById('discordNaam').value.trim();
+    const ingameNaam = document.getElementById('ingameNaam').value.trim();
+    const telefoonNummer = document.getElementById('telefoonNummer').value.trim();
+    const vraagKlacht = document.getElementById('vraagKlacht').value.trim();
+    const inOverheidsDiscord = document.getElementById('inOverheidsDiscord').checked ? "Ja" : "Nee";
+
+    if (!discordNaam || !ingameNaam || !telefoonNummer || !vraagKlacht) {
+        alert('Vul alle velden in voordat je verzendt.');
+        return;
+    }
+
+    const embedPayload = {
+        embeds: [{
+            title: "Nieuwe Vraag/Klacht Ontvangen",
+            color: 5814783,  // Zorg dat dit een geldig geheel getal is
+            fields: [
+                { name: "Discord Naam", value: discordNaam, inline: true },
+                { name: "Ingame Naam", value: ingameNaam, inline: true },
+                { name: "Telefoon Nummer", value: telefoonNummer, inline: false },
+                { name: "Vraag/Klacht", value: vraagKlacht, inline: false },
+                { name: "In overheids Discord", value: inOverheidsDiscord, inline: true }
+            ],
+            footer: {
+                text: "Politie Contactformulier",
+                icon_url: "https://cdn.discordapp.com/attachments/1088478401880395828/1311058415556104262/spark.png?ex=674779cc&is=6746284c&hm=cb2bb83437c1f247ee948aa978ca86ed845688625f0a6428b5d7814fcfeefe0a&"  // Vervang met je eigen URL of verwijder als niet nodig
+            },
+            timestamp: new Date().toISOString()
+        }]
+    };
+
+    console.log("Verzonden payload:", JSON.stringify(embedPayload));  // Voor debugging
+
+    fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(embedPayload)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Bericht succesvol verzonden!');
+            document.getElementById('contactForm').reset();
+        } else {
+            response.text().then(text => {
+                alert(`Fout bij het verzenden: ${text}`);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Fout:', error);
+        alert('Er is een probleem opgetreden bij het verzenden. Controleer de console voor meer informatie.');
+    });
+}
+
+    </script>
+
+</body>
+</html>
