@@ -6,7 +6,6 @@
     <title>Werknemers Dashboard</title>
     <link rel="stylesheet" href="/agenten/style-werknemers.css">
     <link rel="icon" href="/spark.png" type="image/x-icon">
-    <link rel="icon" href="/spark.png" type="image/x-icon">
 </head>
 <body>
 
@@ -21,6 +20,8 @@
             </ul>
         </nav>
     </header>
+
+    <!-- Inklok sectie -->
 
     <!-- Dashboard sectie -->
     <section id="dashboard">
@@ -147,42 +148,61 @@
         
         <h3>Doe dit als volgt:</h3>
         <p>
-            U bent aangehouden voor (bijvoorbeeld) voertuigdiefstal. U heeft het recht om te zwijgen, alles wat u zegt kan tegen u gebruikt worden in een mogelijke rechtszaak. Ook heeft u recht op een advocaat, indien u geen advocaat kunt veroorloven zal er een worden toegewezen. Is dit duidelijk?
+            U bent aangehouden voor (bijvoorbeeld) voertuigdiefstal. U heeft het recht om niet te antwoorden. Wanneer je wordt verhoord en/of je geen toestemming geeft tot inbeslagname wordt alles geregistreerd. Wanneer de verdachte uiteindelijk wel toestemming geeft of komt tot verhoor wordt deze ook goed voorgehouden.
         </p>
-        
-        <p>Na het transport richting bureau, kunt u de verdachte zijn rechten nog aanvullen met:</p>
-        <ul>
-            <li>Het recht op voedsel</li>
-            <li>Het recht op medische hulp</li>
-            <li>Het recht om alleen jouw roepnummer te weten</li>
-            <li>Het recht op de juiste en eerlijke informatie</li>
-            <li>Recht op 1 telefoontje om iemand te instrueren</li>
-        </ul>
-        
-        <p>Let op: Dit is van groot belang. Vertel je deze rechten niet voor het eerste verhoor, moet de verdachte vrijgelaten worden voor Procedurewet!</p>
-    </section>
-    <section id="afbeeldingen">
-        <h2>Afbeeldingen</h2>
-        
-        <div class="afbeelding-container">
-            <img src="/image.png" alt="Afbeelding 1"> 
-            <img src="/Schermafbeelding_2024-08-25_231502.png" alt="Afbeelding 2">
-        </div>
-    </section>
-    
-    <section id="porto-gebruik">
-        <h2>Gebruik van de Porto</h2>
-        <ul>
-            <li>Gebruik je porto alleen als het noodzakelijk is, en spreek altijd met je roepnummer!</li>
-            <li>Luister of het porto netwerk vrij is voordat u gaat spreken.</li>
-            <li>Wacht 2 seconden met spreken na het indrukken van de zendknop (dit voor een volledig verzonden bericht voor de andere eenheden).</li>
-            <li>Houd de zendknop ingedrukt tijdens het spreken. Pas loslaten na volledig uitgesproken bericht.</li>
-            <li>Berichten dienen zo kort mogelijk te zijn, er geldt stilte tijdens BTGV of aanvraag OC urgent.</li>
-            <li>Herhaal het bericht wat je ontvangt als je deze niet goed hebt verstaan, zodat degene die het bericht zendt, er zeker van is dat je het begrijpt.</li>
-            <li>Wacht met beantwoorden totdat de berichtgever 2 seconde niet gesproken heeft.</li>
-        </ul>
     </section>
 
+    <script>
+        // Variabelen
+        let inTijd = null;
+        const inButton = document.getElementById('inklok-button');
+        const uitButton = document.getElementById('uitklok-button');
+        const statusText = document.getElementById('status');
+
+        const discordWebhookURL = 'JOUW_DISCORD_WEBHOOK_URL_HIER'; // Voeg je Discord Webhook URL hier in
+
+        // Functie om de gegevens naar Discord te sturen
+        function sendToDiscord(message) {
+            const data = {
+                content: message
+            };
+            
+            fetch(discordWebhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch((error) => console.error('Error:', error));
+        }
+
+        // Inklokken
+        inButton.addEventListener('click', () => {
+            inTijd = new Date(); // Bewaar de huidige tijd bij inklokken
+            const datumTijd = inTijd.toLocaleString();
+            sendToDiscord(`Ingeklokt op: ${datumTijd}`);
+            statusText.textContent = `Ingeklokt op: ${datumTijd}`;
+            inButton.disabled = true;
+            uitButton.disabled = false; // Maak de uitklokknop actief
+        });
+
+        // Uitklokken
+        uitButton.addEventListener('click', () => {
+            if (inTijd) {
+                const uitTijd = new Date(); // Huidige tijd bij uitklokken
+                const totaalTijd = (uitTijd - inTijd) / 1000 / 60; // Totaal aantal minuten
+                const datumTijdIn = inTijd.toLocaleString();
+                const datumTijdUit = uitTijd.toLocaleString();
+                sendToDiscord(`Uitgeklokt op: ${datumTijdUit}. Totaal ingeklokte tijd: ${totaalTijd.toFixed(2)} minuten.`);
+                statusText.textContent = `Uitgeklokt op: ${datumTijdUit}. Totaal ingeklokte tijd: ${totaalTijd.toFixed(2)} minuten.`;
+                inButton.disabled = false;
+                uitButton.disabled = true; // Deactiveer de uitklokknop
+            }
+        });
+    </script>
 
 </body>
 </html>

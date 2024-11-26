@@ -1,113 +1,160 @@
 /* Algemene styling */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 50px;
-    background-color: #f0f0f0;
-}
-
-/* Navigatiebalk */
-header nav ul {
-    list-style-type: none;
+    margin: 0;
     padding: 0;
-    background-color: #004080;
-    overflow: hidden;
-    border-radius: 10px;
+    background-color: #f4f4f4;
 }
 
-header nav ul li {
-    display: inline;
-    margin: 10px;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 20px;
-    display: inline-block;
-}
-
-header nav ul li a:hover {
-    background-color: #003060;
-    border-radius: 5px;
-}
-
-/* Container voor kaarten */
-.container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-}
-
-/* Styling voor kaarten */
-.card {
-    width: 40%;
-    padding: 20px;
+header {
     background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: box-shadow 0.3s;
+    padding: 10px 0;
+    text-align: center;
 }
 
-.card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Navbalk styling zonder blauwe rand, met zwevend effect en extra witruimte */
+nav {
+    background-color: #003366; /* Donkere achtergrond voor nav */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Schaduw voor een zwevend effect */
+    padding: 10px 40px; /* Meer padding aan de zijkanten voor witruimte */
+    border: none; /* Verwijder de rand rondom de navbalk */
+    border-radius: 5px; /* Optioneel: afgeronde hoeken voor de rand */
+    margin: 20px auto; /* Centraal uitlijnen en ruimte boven/onder */
+    max-width: 1200px; /* Zorgt ervoor dat de navbalk niet te breed wordt */
 }
 
-/* Formulier container */
-.form-container {
-    display: none;
-    margin-top: 30px;
-    text-align: left;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Flexbox voor horizontale uitlijning */
+    justify-content: center; /* Zorgt ervoor dat de links in het midden staan */
+    align-items: center;
 }
 
-/* Formulier styling */
-label {
-    display: block;
-    margin: 10px 0 5px;
+nav ul li {
+    margin: 0 20px; /* Ruimte tussen de menu-items */
 }
 
-input[type="text"], input[type="tel"], textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-/* Verzenden knop */
-.submit-btn {
-    background-color: #4CAF50;
+nav a {
     color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 15px;
+    display: inline-block;
+    transition: all 0.3s ease; /* Voor een vloeiend hover-effect */
 }
 
-.submit-btn:hover {
-    background-color: #45a049;
+nav a:hover {
+    background-color: #00509e; /* Verander de achtergrondkleur bij hover */
+    border-radius: 4px; /* Hoekjes afronden bij hover */
+    transform: translateY(-3px); /* Lichtjes naar boven schuiven bij hover */
 }
 
-/* Styling voor extra secties */
+/* Mobiele responsiviteit */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Zet de navigatie-items verticaal voor kleinere schermen */
+        align-items: flex-start; /* Links uitlijnen */
+        padding-left: 20px;
+    }
+
+    nav ul li {
+        margin: 10px 0; /* Verhoog de ruimte tussen items op mobiel */
+    }
+
+    nav a {
+        padding: 10px 0; /* Zorg voor meer ruimte boven en onder de links */
+    }
+}
+
+
+/* Mobiele responsiviteit */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Zet de navigatie-items verticaal voor kleinere schermen */
+        align-items: flex-start; /* Links uitlijnen */
+        padding-left: 20px;
+    }
+
+    nav ul li {
+        margin: 10px 0; /* Verhoog de ruimte tussen items op mobiel */
+    }
+
+    nav a {
+        padding: 10px 0; /* Zorg voor meer ruimte boven en onder de links */
+    }
+}
+
+/* Mobiele responsiviteit */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Zet de navigatie-items verticaal voor kleinere schermen */
+        align-items: flex-start; /* Links uitlijnen */
+        padding-left: 20px;
+    }
+
+    nav ul li {
+        margin: 10px 0; /* Verhoog de ruimte tussen items op mobiel */
+    }
+
+    nav a {
+        padding: 10px 0; /* Zorg voor meer ruimte boven en onder de links */
+    }
+}
+
+
+/* Secties styling */
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 h1, h2 {
     color: #003366;
 }
 
-/* Styling voor zoekbalk */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #003366;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #00509e;
+}
+
+/* Avatar inlog sectie */
+.avatar img {
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Styling voor de zoekbalk */
 #search-input {
     width: 100%;
     padding: 10px;
@@ -117,7 +164,7 @@ h1, h2 {
     border-radius: 4px;
 }
 
-/* Gebruikerslijst styling */
+/* Styling voor de gebruikerslijst */
 #user-list {
     margin-top: 20px;
 }
@@ -129,7 +176,6 @@ h1, h2 {
     border-radius: 4px;
 }
 
-/* Algemene knop styling */
 button {
     background-color: #e74c3c;
     color: white;
@@ -143,161 +189,97 @@ button:hover {
     background-color: #c0392b;
 }
 
-/* Succesbericht styling */
 #message {
     color: green;
     margin-top: 10px;
 }
 
-/* Algemene styling voor de secties */
-section {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    color: #003366;
-    margin-bottom: 20px;
-}
-
-.avatar img {
-    border-radius: 50%;
-    margin-bottom: 20px;
-}
-
-/* Styling voor inlog sectie */
-#inloggen form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-#inloggen label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #003366;
-}
-
-#inloggen input[type="text"], #inloggen input[type="password"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-}
-
-#inloggen button {
-    background-color: #003366;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#inloggen button:hover {
-    background-color: #00509e;
-}
-
-#error-message {
-    color: red;
-    font-size: 14px;
-    display: none;
-}
-
-/* Styling voor solliciteren sectie */
-#solliciteren form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#solliciteren label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #003366;
-}
-
-#solliciteren input[type="text"], #solliciteren input[type="number"], #solliciteren textarea {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#solliciteren button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#solliciteren button:hover {
-    background-color: #45a049;
-}
-
-/* Extra styling voor de textarea velden */
-#solliciteren textarea {
-    height: 150px;
-}
-
-/* Verbetering van de formulierstructuur */
-form input[type="text"], form input[type="number"], form input[type="password"], form textarea {
-    margin-bottom: 15px;
-}
-
-form button {
-    width: 100%;
-}
-
-/* Foutmeldingen voor beide formulieren */
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-/* Zorg ervoor dat de forms goed zichtbaar zijn */
-section {
-    max-width: 700px;
-    margin: 30px auto;
-}
-
-/* Responsieve styling voor kleinere schermen */
-@media (max-width: 600px) {
-    section {
-        width: 90%;
-    }
-}
-
-/* Wetboek Afbeeldingen */
+/* Wetboek afbeeldingen sectie */
 .wetboek-afbeeldingen {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+    display: block; /* Zet de afbeeldingen onder elkaar */
+    padding: 0;
 }
 
 .wetboek-afbeeldingen a {
     display: block;
+    text-align: center; /* Zorgt ervoor dat de afbeelding gecentreerd wordt binnen de link */
+    margin-bottom: 20px; /* Ruimte tussen de afbeeldingen */
 }
 
 .wetboek-afbeeldingen img {
+    width: 100%; /* Zorgt ervoor dat de afbeeldingen de volledige breedte van hun container gebruiken */
+    height: auto; /* Behoudt de verhoudingen van de afbeeldingen */
+    max-width: 21cm; /* Beperk de breedte tot A4 formaat */
+    max-height: 29.7cm; /* Beperk de hoogte tot A4 formaat */
     border-radius: 8px;
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lichte schaduw rondom de afbeeldingen */
+    transition: transform 0.3s ease-in-out; /* Voor hover-effect */
 }
 
+/* Hover-effect voor de afbeeldingen */
 .wetboek-afbeeldingen img:hover {
-    transform: scale(1.1);  /* Vergroot de afbeelding iets bij hover */
+    transform: scale(1.05); /* Vergroot de afbeelding een beetje bij hover */
+}
+
+/* Modale styling */
+.modal {
+    display: none; /* Begin met verborgen */
+    position: fixed;
+    z-index: 1; /* Zet het bovenop andere content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Donkere achtergrond voor overlay */
+    padding-top: 60px;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Specifieke stijlen voor afdrukken */
+@media print {
+    body {
+        width: 21cm;
+        height: 29.7cm;
+        margin: 0 auto;
+    }
+
+    .wetboek-afbeeldingen {
+        display: block; /* Zet de afbeeldingen onder elkaar in plaats van in een grid voor afdrukken */
+        padding: 0;
+    }
+
+    .wetboek-afbeeldingen a {
+        page-break-before: always; /* Zorgt ervoor dat elke afbeelding op een nieuwe pagina begint */
+    }
+
+    .wetboek-afbeeldingen img {
+        width: 100%;
+        max-width: 21cm;
+        max-height: 29.7cm; /* Zorg ervoor dat de afbeelding binnen de grenzen van A4 past */
+        height: auto;
+    }
 }
