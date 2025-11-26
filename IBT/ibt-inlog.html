@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBT - Inloggen</title>
+    <link rel="stylesheet" href="/agenten/style-werknemers.css">
+    <link rel="icon" href="spark.png" type="image/x-icon">
+
+    <!-- Extra styling specifiek voor login -->
+    <style>
+        #inloggen {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        #inloggen h2 {
+            margin-bottom: 20px;
+            color: #004080;
+        }
+
+        #login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #login-form label {
+            text-align: left;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #login-form input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        #login-form button {
+            background-color: #004080;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #login-form button:hover {
+            background-color: #0050a0;
+        }
+
+        #error-message {
+            margin-top: 15px;
+            color: red;
+            font-weight: bold;
+            display: none;
+        }
+
+        .avatar img {
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigatiebalk -->
+    <header class="fixed-header">
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="IBT-home.html">Home</a></li>
+                <li><a href="agenten.html">Agenten</a></li>
+                <li><a href="zoeken.html">Zoeken</a></li>
+                <li><a href="trainingen.html">Trainingen</a></li>
+                <li><a href="docenten.html">IBT - Docenten</a></li>
+                <li><a href="IBT-inlog.html">Inloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Inloggen sectie -->
+    <section id="inloggen">
+        <h2>Inloggen</h2>
+        <div class="avatar">
+            <img src="/afbeelding/politie.png" alt="Politie Inloggen" width="100" height="100">
+        </div>
+        <form id="login-form" onsubmit="return checkLogin(event)">
+            <label for="username">Gebruikersnaam:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Wachtwoord:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Inloggen</button>
+        </form>
+        <p id="error-message">Ongeldige gebruikersnaam of wachtwoord!</p>
+    </section>
+
+    <script src="/IBT/login1.js"></script>
+</body>
+</html>
