@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBT - Agent Details</title>
+  <link rel="stylesheet" href="/agenten/style-werknemers.css">
+  <link rel="icon" href="spark.png" type="image/x-icon">
+
+  <style>
+    body {
+      padding-top: 80px;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: #f4f4f4;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .container h2 {
+      color: #004080;
+      margin-bottom: 20px;
+    }
+
+    .rank-section {
+      margin-bottom: 40px;
+    }
+
+    .training-item {
+      background-color: #004080;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .training-item:hover {
+      background-color: #0050a0;
+    }
+
+    .training-item.filled {
+      background-color: #008000;
+    }
+
+    .training-details {
+      background-color: #fff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+      border: 1px solid #ccc;
+    }
+
+    .training-details label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .training-details input,
+    .training-details textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    .arrow {
+      font-size: 1.2em;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .actions button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .save-btn {
+      background-color: #004080;
+      color: white;
+    }
+
+    .delete-btn {
+      background-color: #800000;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="fixed-header">
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="IBT-home.html">Home</a></li>
+        <li><a href="agenten.html">Agenten</a></li>
+        <li><a href="trainingen.html">Trainingen</a></li>
+        <li><a href="agent-toevoegen.html">Agent toevoegen</a></li>
+        <li><a href="/index.html">Uitloggen</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2 id="agentTitle">Agent Details</h2>
+
+    <label>Naam:</label>
+    <input type="text" id="agentName">
+
+    <label>Roepnummer:</label>
+    <input type="text" id="agentRoepnummer" readonly>
+
+    <label>Rang:</label>
+    <select id="agentRank" onchange="updateRoepnummer()">
+      <option value="Eerste Hoofd Commissaris">Eerste Hoofd Commissaris</option>
+      <option value="Hoofd Commissaris">Hoofd Commissaris</option>
+      <option value="Commissaris">Commissaris</option>
+      <option value="Hoofd Inspecteur">Hoofd Inspecteur</option>
+      <option value="Inspecteur">Inspecteur</option>
+      <option value="Brigadier">Brigadier</option>
+      <option value="Hoofd Agent">Hoofd Agent</option>
+      <option value="Agent">Agent</option>
+      <option value="Surveillant">Surveillant</option>
+      <option value="Aspirant">Aspirant</option>
+    </select>
+
+    <div id="trainingContainer"></div>
+
+    <div class="actions">
+      <button class="save-btn" onclick="saveAgent()">Opslaan</button>
+      <button class="delete-btn" onclick="deleteAgent()">Verwijder</button>
+    </div>
+  </div>
+
+<script>
+
+  /* -------------------------
+     BASISGEGEVENS LADEN
+  -------------------------- */
+
+  const selectedAgent = localStorage.getItem("selectedAgent");
+  const selectedRank = localStorage.getItem("selectedRank");
+  const selectedRoepnummer = localStorage.getItem("selectedRoepnummer");
+
+  document.getElementById("agentName").value = selectedAgent;
+  document.getElementById("agentRank").value = selectedRank;
+  document.getElementById("agentRoepnummer").value = selectedRoepnummer;
+
+  /* -------------------------
+     ROEPNUMMER DATABASE
+  -------------------------- */
+
+  const roepnummersPerRang = {
+    "Eerste Hoofd Commissaris": ["KL-01"],
+    "Hoofd Commissaris": ["KL-02"],
+
+    "Commissaris": ["24-01","24-02","24-03"],
+
+    "Hoofd Inspecteur": [
+      "24-10","24-11","24-12","24-13","24-14","24-15","24-16","24-17"
+    ],
+
+    "Inspecteur": [
+      "24-18","24-19","24-20","24-21","24-22","24-23","24-24"
+    ],
+
+    "Brigadier": [
+      "24-25","24-26","24-27","24-28","24-29",
+      "24-30","24-31","24-32","24-33","24-34","24-35"
+    ],
+
+    "Hoofd Agent": [
+      "24-36","24-37","24-38","24-39","24-40","24-41",
+      "24-42","24-43","24-44","24-45","24-46","24-47"
+    ],
+
+    "Agent": [
+      "24-48","24-49","24-50","24-51","24-52","24-53",
+      "24-54","24-55","24-56","24-57","24-58"
+    ],
+
+    "Surveillant": [
+      "24-59","24-60","24-61","24-62","24-63","24-64",
+      "24-65","24-66","24-67","24-68","24-69","24-70",
+      "24-71","24-72"
+    ],
+
+    "Aspirant": [
+      "24-73","24-74","24-75","24-76","24-77","24-78","24-79",
+      "24-80","24-81","24-82","24-83","24-84","24-85","24-86",
+      "24-87","24-88","24-89","24-90","24-91","24-92","24-93"
+    ]
+  };
+
+  /* -------------------------
+     VRIJ ROEPNUMMER KIEZEN
+  -------------------------- */
+
+  function getVrijRoepnummer(rang, huidigeNaam) {
+    const agents = JSON.parse(localStorage.getItem("agents")) || [];
+
+    const gebruikte = agents
+      .filter(a => a.name !== huidigeNaam)
+      .map(a => a.roepnummer);
+
+    return roepnummersPerRang[rang].find(nr => !gebruikte.includes(nr));
+  }
+
+  function updateRoepnummer() {
+    const nieuweRang = document.getElementById("agentRank").value;
+    const nieuweRoep = getVrijRoepnummer(nieuweRang, selectedAgent);
+    document.getElementById("agentRoepnummer").value = nieuweRoep;
+  }
+
+  /* -------------------------
+     OPSLAAN VAN AGENT
+  -------------------------- */
+
+  function saveAgent() {
+    const agents = JSON.parse(localStorage.getItem("agents")) || [];
+    const index = agents.findIndex(a => a.name === selectedAgent);
+
+    if (index === -1) {
+      alert("Agent niet gevonden!");
+      return;
+    }
+
+    agents[index].name = document.getElementById("agentName").value;
+    agents[index].rank = document.getElementById("agentRank").value;
+    agents[index].roepnummer = document.getElementById("agentRoepnummer").value;
+
+    localStorage.setItem("agents", JSON.stringify(agents));
+
+    alert("Agent opgeslagen!");
+  }
+
+  /* -------------------------
+     TRAININGEN (JOUW BESTAANDE CODE)
+  -------------------------- */
+
+  const trainingenPerRang = {
+    "Aspirant": ["Basis Theorie","Basis Praktijk","EHBO"],
+    "Surveillant": ["PIT-manoeuvre Basis","Offroad","Vuurwapen","Afhandelen Verdachte"],
+    "Agent": ["Verkeerspolitie","Motor","Water Politie","Mobiele Eenheid","TPE"],
+    "Hoofd Agent": ["Unmarked","OVD","Hulpofficier van Justitie","Luchtvaart Politie Basis"],
+    "Brigadier": ["Luchtvaart Politie","OpCo","Persoons Beveiliging"]
+  };
+
+  const trainingContainer = document.getElementById('trainingContainer');
+
+  function setTrainingStatusColor(training, savedData, item) {
+    if (savedData.afgerond) {
+      if (savedData.afgerond.toLowerCase() === "nee") {
+        item.style.backgroundColor = "#800000";
+      } else if (savedData.afgerond.toLowerCase() === "ja") {
+        item.style.backgroundColor = "#008000";
+      }
+    } else {
+      item.style.backgroundColor = "#004080";
+    }
+  }
+
+  Object.entries(trainingenPerRang).forEach(([rang, trainingen]) => {
+    const section = document.createElement('div');
+    section.className = 'rank-section';
+
+    const title = document.createElement('h3');
+    title.textContent = rang + " Trainingen";
+    section.appendChild(title);
+
+    trainingen.forEach(training => {
+      const item = document.createElement('div');
+      item.className = 'training-item';
+      item.innerHTML = `<span>${training}</span><span class="arrow">▶</span>`;
+      section.appendChild(item);
+
+      const detail = document.createElement('div');
+      detail.className = 'training-details';
+      detail.style.display = "none";
+      section.appendChild(detail);
+
+      const saved = JSON.parse(localStorage.getItem(`${selectedAgent}_${training}`)) || {};
+      setTrainingStatusColor(training, saved, item);
+
+      item.onclick = () => {
+        detail.style.display = (detail.style.display === "none") ? "block" : "none";
+        switch(training) {
+          case "Basis Theorie": detail.innerHTML = renderBasisTheorie(saved, training); break;
+          case "Basis Praktijk": detail.innerHTML = renderBasisPraktijk(saved, training); break;
+          case "EHBO": detail.innerHTML = renderEHBO(saved, training); break;
+          case "PIT-manoeuvre Basis": detail.innerHTML = renderPit(saved, training); break;
+          case "Offroad": detail.innerHTML = renderOffroad(saved, training); break;
+          case "Vuurwapen": detail.innerHTML = renderVuurwapen(saved, training); break;
+          case "Afhandelen Verdachte": detail.innerHTML = renderAfhandelenVerdachte(saved, training); break;
+          case "Verkeerspolitie": detail.innerHTML = renderSIV(saved, training); break;
+          case "Motor": detail.innerHTML = renderMotor(saved, training); break;
+          case "Water Politie": detail.innerHTML = renderWaterpolitie(saved, training); break;
+          case "Unmarked": detail.innerHTML = renderUnmarked(saved, training); break;
+          default:
+            detail.innerHTML = `<em>Formulier voor ${training} komt later...</em>`;
+        }
+      };
+    });
+
+    trainingContainer.appendChild(section);
+  });
+
+</script>
+
+<!-- Training scripts -->
+<script src="/IBT/scripts/basis-theorie.js"></script>
+<script src="/IBT/scripts/ehbo.js"></script>
+<script src="/IBT/scripts/basis-praktijk.js"></script>
+<script src="/IBT/scripts/pitbasis.js"></script>
+<script src="/IBT/scripts/offroad.js"></script>
+<script src="/IBT/scripts/schiet.js"></script>
+<script src="/IBT/scripts/afhandelenverdachte.js"></script>
+<script src="/IBT/scripts/siv.js"></script>
+<script src="/IBT/scripts/motor.js"></script>
+<script src="/IBT/scripts/waterpolitie.js"></script>
+<script src="/IBT/scripts/unmarked.js"></script>
+
+</body>
+</html>

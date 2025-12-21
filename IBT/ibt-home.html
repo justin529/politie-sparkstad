@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBT - Home</title>
+    <link rel="stylesheet" href="/agenten/style-werknemers.css">
+    <link rel="icon" href="spark.png" type="image/x-icon">
+ <style>
+.grid-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.grid-item {
+    background-color: #004080;
+    color: white;
+    display: flex;               /* Flexbox */
+    justify-content: flex-start; /* inhoud links uitlijnen */
+    align-items: center;         /* verticaal centreren */
+    padding: 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 1.1em;
+    border: 2px solid #003060;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    gap: 12px;                   /* ruimte tussen icoon en tekst */
+}
+
+.grid-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    border-color: #0050a0;
+}
+
+.grid-item img {
+    width: 40px;
+    height: 40px;
+}
+
+.grid-item span {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+</style>
+</head>
+<body>
+
+    <!-- Navigatiebalk -->
+    <header>
+         <nav>
+            <ul>
+                <li><a href="IBT-home.html">Home</a></li>
+                <li><a href="agenten.html">Agenten</a></li>
+                <li><a href="trainingen.html">Trainingen</a></li>
+                <li><a href="agent-toevoegen.html">Agent toevoegen</a></li>
+                <li><a href="/index.html">uitloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Welkomstsectie -->
+    <section class="intro">
+        <h1>Welkom bij IBT</h1>
+        <p>Deze website is jouw centrale plek voor alles wat met IBT te maken heeft: van trainingen tot agenteninformatie en docentendocumentatie. Gebruik de knoppen hierboven om snel te navigeren.</p>
+    </section>
+
+    <!-- Grid met knoppen -->
+    <section class="grid-buttons">
+        <a href="/agenten/dashboard.html" class="grid-item"><img src="/icons/home.png" alt="Home"><span>Home</span></a>
+        <a href="agenten.html" class="grid-item"><img src="/icons/policeman.png" alt="Agenten"><span>Agenten</span></a>
+        <a href="trainingen.html" class="grid-item"><img src="/icons/reading-book.png" alt="Trainingen"><span>Trainingen</span></a>
+        <a href="/index.html" class="grid-item"><img src="/icons/logout.png" alt="Docenten"><span>Uitloggen</span></a>
+    </section>
+
+</body>
+</html>

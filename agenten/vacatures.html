@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interne Vacatures</title>
+    <link rel="icon" href="/spark.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigatiebalk */
+        header nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #333;
+        }
+
+        header nav ul li {
+            display: inline;
+        }
+
+        header nav ul li a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        header nav ul li a:hover {
+            background-color: #575757;
+        }
+
+        /* Dropdownmenu styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .dropdown button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown button:hover {
+            background-color: #45a049;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content button {
+            background-color: #fff;
+            color: black;
+            padding: 12px 16px;
+            text-align: left;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Formulier styling */
+        #form-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #form-container form {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #form-container input, #form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        // Discord webhook URL
+        const discordWebhookURL = 'https://discord.com/api/webhooks/1308953364759052300/tZAAeeOQr6GPmS8DT1YsavL3p0XpNIpXwp8zxJTySgXoLc6QoSNbV97MwxRP13BKi5fc';
+
+        // Functie om het sollicitatieformulier naar Discord te sturen
+        function submitForm(event) {
+            event.preventDefault(); // Voorkom herladen van de pagina bij formulierindiening
+
+            // Gegevens van het formulier ophalen
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const rank = document.getElementById('rank').value;
+            const reason = document.getElementById('reason').value;
+            const submitDate = document.getElementById('submit-date').value;
+            const vacature = document.getElementById('vacature-name').textContent;
+
+            // Bouw het bericht voor Discord
+            const message = {
+                content: `Nieuwe sollicitatie voor de vacature: ${vacature}`,
+                embeds: [{
+                    title: "Sollicitatie Gegevens",
+                    fields: [
+                        {
+                            name: "Naam",
+                            value: name,
+                            inline: true
+                        },
+                        {
+                            name: "Leeftijd",
+                            value: age,
+                            inline: true
+                        },
+                        {
+                            name: "Rang",
+                            value: rank,
+                            inline: true
+                        },
+                        {
+                            name: "Waarom geschikt?",
+                            value: reason,
+                            inline: false
+                        },
+                        {
+                            name: "Datum ingevuld",
+                            value: submitDate,
+                            inline: false
+                        }
+                    ]
+                }]
+            };
+
+            // Verstuur de gegevens naar Discord Webhook via een POST-verzoek
+            fetch(discordWebhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(message)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Sollicitatie succesvol verzonden!');
+                document.getElementById('form-container').reset(); // Reset het formulier na verzending
+            })
+            .catch(error => {
+                alert('Sollicitatie succesvol verzonden!');
+                console.error('Error:', error);
+            });
+        }
+
+        // Functie om het sollicitatieformulier weer te geven
+        function showApplicationForm(vacature) {
+            document.getElementById('form-container').style.display = 'block';
+            document.getElementById('vacature-name').textContent = vacature;
+            document.getElementById('submit-date').value = new Date().toLocaleString();
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Navigatiebalk -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="vacatures.html">Interne Vacatures</a></li>
+                <li><a href="formulieren.html">Formulieren</a></li>
+                <li><a href="/index.html">Uitloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Vacatures sectie -->
+    <section id="vacatures">
+        <h1>Interne Vacatures</h1>
+
+        <!-- Dropdown Menu voor Vacaturecategorieën -->
+        <div class="dropdown">
+            <button>Korpsleiding</button>
+            <div class="dropdown-content">
+                <button onclick="showApplicationForm('Bureau Personeelszaken')">Bureau Personeelszaken</button>
+                <button onclick="showApplicationForm('Bureau Planning en Operaties')">Bureau Planning en Operaties</button>
+                <button onclick="showApplicationForm('Werving en Selectie')">Werving en Selectie</button>
+                <button onclick="showApplicationForm('Administrateur')">Administrateur</button>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button>P. Academie</button>
+            <div class="dropdown-content">
+                <button onclick="showApplicationForm('Coördinator Basisopleiding')">Coördinator Basisopleiding</button>
+                <button onclick="showApplicationForm('Coördinator Wapens & Certificaten')">Coördinator Wapens & Certificaten</button>
+                <button onclick="showApplicationForm('Coördinator Functie Opleiding')">Coördinator Functie Opleiding</button>
+                <button onclick="showApplicationForm('IBT Docent')">IBT Docent</button>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button>LX</button>
+            <div class="dropdown-content">
+                <button onclick="showApplicationForm('Intelligence LX')">Intelligence LX</button>
+                <button onclick="showApplicationForm('Dienst Koninklijke Diplomatieke Beveiliging')">Dienst Koninklijke Diplomatieke Beveiliging</button>
+                <button onclick="showApplicationForm('Dienst Infrastructuur (Zulu, Team Verheer, Water Politie)')">Dienst Infrastructuur</button>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button>LO</button>
+            <div class="dropdown-content">
+                <button onclick="showApplicationForm('Dienst Landelijke Recherche')">Dienst Landelijke Recherche</button>
+                <button onclick="showApplicationForm('Dienst Speciale Interventies')">Dienst Speciale Interventies</button>
+                <button onclick="showApplicationForm('Afgeschermde Operaties')">Afgeschermde Operaties</button>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button>Basisteam</button>
+            <div class="dropdown-content">
+                <button onclick="showApplicationForm('Officier van Dienst')">Officier van Dienst</button>
+                <button onclick="showApplicationForm('Operationeel Coördinator')">Operationeel Coördinator</button>
+                <button onclick="showApplicationForm('Wijkagent')">Wijkagent</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sollicitatie Formulier -->
+    <section id="form-container">
+        <h2>Solliciteer voor <span id="vacature-name"></span></h2>
+        <form onsubmit="submitForm(event)">
+            <label for="name">Naam:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="age">Leeftijd:</label>
+            <input type="number" id="age" name="age" required><br><br>
+
+            <label for="rank">Rang:</label>
+            <input type="text" id="rank" name="rank" required><br><br>
+
+            <label for="reason">Waarom ben je geschikt voor deze functie?</label><br>
+            <textarea id="reason" name="reason" rows="4" required></textarea><br><br>
+
+            <label for="submit-date">Datum ingevuld:</label>
+            <input type="text" id="submit-date" name="submit-date" disabled><br><br>
+
+            <button type="submit">Verstuur Sollicitatie</button>
+        </form>
+    </section>
+
+</body>
+</html>

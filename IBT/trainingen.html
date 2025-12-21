@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBT - Trainingen</title>
+  <link rel="stylesheet" href="/agenten/style-werknemers.css">
+  <link rel="icon" href="spark.png" type="image/x-icon">
+  <style>
+    .grid-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .grid-item {
+      background-color: #004080;
+      color: white;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 1.1em;
+      border: 2px solid #003060;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      gap: 12px;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      border-color: #0050a0;
+    }
+
+    .grid-item img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .grid-item span {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 40px;
+      color: #004080;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigatiebalk -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="IBT-home.html">Home</a></li>
+        <li><a href="agenten.html">Agenten</a></li>
+        <li><a href="trainingen.html">Trainingen</a></li>
+        <li><a href="agent-toevoegen.html">Agent toevoegen</a></li>
+        <li><a href="/index.html">Uitloggen</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Welkomsttekst -->
+  <section class="intro">
+    <h1>Trainingen per Rang</h1>
+    <p>Hier kan je alle trainingen vinden je word doorgestuurd naar een google drive map met alle informatie dit zal bestaan uit een video, word document, powerpoint, praktijk informatie</p>
+  </section>
+
+  <!-- Aspirant -->
+  <h2>Aspirant</h2>
+  <section class="grid-buttons">
+    <a href="https://drive.google.com/drive/folders/Rondleiding" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/rondleiding.png"><span>Rondleiding</span></a>
+    <a href="https://drive.google.com/drive/folders/10FCo2UzBhB43tEDzxPcbXIptjYbVqJPY?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/politie.png"><span>Basis Theorie</span></a>
+    <a href="https://drive.google.com/drive/folders/1SswrStadLyPRuSJnFM4bqAmNnUkDU9t0?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/gewicht.png"><span>Basis Praktijk</span></a>
+  </section>
+
+  <!-- Surveillant -->
+  <h2>Surveillant</h2>
+  <section class="grid-buttons">
+    <a href="https://drive.google.com/drive/folders/1ngqiDrOXHH5jjw9ykmAcPMVUsS7nmBa9?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/police car.png"><span>PIT-manoeuvre Basis</span></a>
+    <a href="https://drive.google.com/drive/folders/1Qhcd-6u2V8UCahkNnR_SdEFnnj3pIjWB?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/offroad.png"><span>Offroad</span></a>
+    <a href="https://drive.google.com/drive/folders/1eKcY4k--zlcKsbFD1R283gar6S4-N-sR?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/wapen.png"><span>Vuurwapen</span></a>
+    <a href="https://drive.google.com/drive/folders/11hoPr65l-WMkUQ7tj7ywoIJEwUozJxU-?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/prison.png"><span>Afhandelen Verdachte</span></a>
+  </section>
+
+  <!-- Agent -->
+  <h2>Agent</h2>
+  <section class="grid-buttons">
+    <a href="https://drive.google.com/drive/folders/1RhqQ3K7etyv_YFvdCzG-1EgNwAu5Yb-T?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/police car.png"><span>Verkeerspolitie</span></a>
+    <a href="https://drive.google.com/drive/folders/1zYZDmSri2ChrOGWvoDI4xYwJS1o07owR?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/bike.png"><span>Motor</span></a>
+    <a href="https://drive.google.com/drive/folders/1hOjMqISSWVRRPT92QWBo8cxpvMesBlZY?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/boot.png"><span>Water Politie</span></a>
+    <a href="https://drive.google.com/drive/folders/1CMdIIRCn8ThQr5Xem9afvgXkaiiux0yF?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/politie.png"><span>Mobiele Eenheid</span></a>
+    <a href="https://drive.google.com/drive/folders/1rVn3bbpxQmWVP0O9mRzmqvWmohFOnmS2?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/politie.png"><span>Team Parate Eenheid</span></a>
+  </section>
+
+  <!-- Hoofd Agent -->
+  <h2>Hoofd Agent</h2>
+  <section class="grid-buttons">
+    <a href="https://drive.google.com/drive/folders/1cwvLJ4RaATZFlTutdDqe1kSIRQ7_jYvF?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/car.png"><span>Unmarked</span></a>
+    <a href="https://drive.google.com/drive/folders/14SinB8gNDyU5vx8CuuhJr5NWy_QsdM7R?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/politie.png"><span>Officier van Dienst</span></a>
+    <a href="https://drive.google.com/drive/folders/1rKBgI1Zetyo8DI9_Cb0SU-jOrO8MpidP?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/politie.png"><span>Hulpofficier van Justitie</span></a>
+    <a href="https://drive.google.com/drive/folders/16m_zr5hvOmJUatOSuGP6KveImF_C9dgn?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/zulu.png"><span>Luchtvaart Politie Basis</span></a>
+  </section>
+
+  <!-- Brigadier -->
+  <h2>Brigadier</h2>
+  <section class="grid-buttons">
+    <a href="https://drive.google.com/drive/folders/1H_WWY_hIG3Zg-G2wsWblgQwHtJSrDdm2?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/zulu.png"><span>Luchtvaart Politie</span></a>
+    <a href="https://drive.google.com/drive/folders/10_vxdzBr_PXuXdrNm_XWAf8hlp_QvLkb?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/OC.png"><span>Operationeel Coördinator</span></a>
+    <a href="https://drive.google.com/drive/folders/1mZeUdb2OpEv0cbi_L6ynyYKx1NHgRoKs?usp=sharing" class="grid-item" target="_blank"><img src="/IBT/Trainingen icoons/security.png"><span>Persoons Beveiliging</span></a>
+  </section>
+
+</body>
+</html>

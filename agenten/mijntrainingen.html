@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBT - Mijn Trainingen</title>
+  <link rel="stylesheet" href="/agenten/style-werknemers.css">
+  <link rel="icon" href="spark.png" type="image/x-icon">
+  <style>
+    body {
+      padding-top: 80px;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: #004080;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #004080;
+    }
+
+    .training-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .training-item {
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .training-item.gehaald {
+      background-color: #008000; /* Groen */
+    }
+
+    .training-item.niet-gehaald {
+      background-color: #800000; /* Rood */
+    }
+
+    .status {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="fixed-header">
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="formulieren.html">Formulieren</a></li>
+        <li><a href="mijntrainingen.html">Trainingen</a></li>
+        <li><a href="/IBT/ibt-inlog.html">IBT Inloggen</a></li>
+        <li><a href="/index.html">Uitloggen</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Container -->
+  <div class="container">
+    <h2 id="agentTitle">Mijn Trainingen</h2>
+    <div id="trainingContainer"></div>
+  </div>
+
+<script>
+  const selectedAgent = localStorage.getItem('selectedAgent');
+  document.getElementById('agentTitle').textContent = "Trainingen van " + (selectedAgent || "Onbekend");
+
+  // Trainings per rang
+  const trainingenPerRang = {
+    "Aspirant": ["Basis Theorie","Basis Praktijk","EHBO"],
+    "Surveillant": ["PIT-manoeuvre Basis","Offroad","Vuurwapen","Afhandelen Verdachte"],
+    "Agent": ["Verkeerspolitie","Motor","Water Politie","Mobiele Eenheid","TPE"],
+    "Hoofd Agent": ["Unmarked","OVD","Hulpofficier van Justitie","Luchtvaart Politie Basis"],
+    "Brigadier": ["Luchtvaart Politie","OpCo","Persoons Beveiliging"]
+  };
+
+  const container = document.getElementById('trainingContainer');
+
+  Object.entries(trainingenPerRang).forEach(([rang, trainingen]) => {
+    const section = document.createElement('div');
+    section.className = 'rank-section';
+
+    const title = document.createElement('h3');
+    title.textContent = rang + " Trainingen";
+    section.appendChild(title);
+
+    const list = document.createElement('div');
+    list.className = 'training-list';
+
+    trainingen.forEach(training => {
+      const key = `${selectedAgent}_${training}`;
+      const saved = JSON.parse(localStorage.getItem(key)) || {};
+
+      const item = document.createElement('div');
+      item.className = 'training-item';
+
+      if (saved.afgerond && saved.afgerond.toLowerCase() === "ja") {
+        item.classList.add("gehaald");
+        item.innerHTML = `<span>${training}</span><span class="status">Gehaald ✔</span>`;
+      } else {
+        item.classList.add("niet-gehaald");
+        item.innerHTML = `<span>${training}</span><span class="status">Niet gehaald ✘</span>`;
+      }
+
+      list.appendChild(item);
+    });
+
+    section.appendChild(list);
+    container.appendChild(section);
+  });
+</script>
+</body>
+</html>

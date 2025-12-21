@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Agent Toevoegen</title>
+
+  <link rel="stylesheet" href="/agenten/style-werknemers.css">
+
+  <style>
+    .form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  background-color: white;
+  color: #333;
+}
+    .add-agent-container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    .add-agent-container h2 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+    }
+
+    .agent-item {
+      background: #004080;
+      color: white;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-btn {
+      background: #800000;
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+        <nav>
+      <ul class="nav-menu">
+        <li><a href="IBT-home.html">Home</a></li>
+        <li><a href="agenten.html">Agenten</a></li>
+        <li><a href="trainingen.html">Trainingen</a></li>
+        <li><a href="agent-toevoegen.html">Agent toevoegen</a></li>
+        <li><a href="/index.html">Uitloggen</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="add-agent-container">
+
+    <h2>Nieuwe agent</h2>
+
+    <div class="form-group">
+      <label>Naam agent:</label>
+      <input type="text" id="newAgentName" placeholder="Bijv. J. de Vries">
+    </div>
+
+    <div class="form-group">
+      <label>Roepnummer:</label>
+      <input type="text" id="newAgentRoepnummer" placeholder="Bijv. A1-12">
+    </div>
+
+    <div class="form-group">
+      <label>Rang:</label>
+      <select id="newAgentRank">
+        <option value="">-- Kies rang --</option>
+        <option value="Aspirant">Aspirant</option>
+        <option value="Surveillant">Surveillant</option>
+        <option value="Agent">Agent</option>
+        <option value="Hoofd Agent">Hoofd Agent</option>
+        <option value="Brigadier">Brigadier</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Wachtwoord:</label>
+      <input type="password" id="newAgentPassword" placeholder="Kies een wachtwoord">
+    </div>
+
+    <button class="save-btn" onclick="addAgent()">➕ Agent toevoegen</button>
+
+    <h3>Bestaande agents</h3>
+    <div id="agentList"></div>
+
+  </section>
+
+  <script src="/IBT/scripts/agent-toevoegen.js"></script>
+
+</body>
+</html>

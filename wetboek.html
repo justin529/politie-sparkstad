@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politie Website - Wetboek</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="spark.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Navigatiebalk -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Welkom</a></li>
+                <li><a href="solliciteren.html">Solliciteren</a></li>
+                <li><a href="wetboek.html">Wetboek</a></li>
+                <li><a href="inloggen.html">Inloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wetboek sectie -->
+    <section id="wetboek">
+        <h2>Het Wetboek</h2>
+        <p>Het wetboek bevat de wetten en regels die de politie handhaaft. Bekijk de volledige wetgeving voor meer details.</p>
+
+        <!-- Afbeeldingen sectie -->
+        <div class="wetboek-afbeeldingen">
+            <a href="javascript:void(0)" onclick="openModal('afbeelding1')">
+                <img src="/afbeelding/wetboek/1.png" alt="Afbeelding van Wetboek 1">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding2')">
+                <img src="/afbeelding/wetboek/2.png" alt="Afbeelding van Wetboek 2">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding3')">
+                <img src="/afbeelding/wetboek/3.png" alt="Afbeelding van Wetboek 3">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding4')">
+                <img src="/afbeelding/wetboek/4.png" alt="Afbeelding van Wetboek 4">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding5')">
+                <img src="/afbeelding/wetboek/5.png" alt="Afbeelding van Wetboek 5">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding6')">
+                <img src="/afbeelding/wetboek/6.png" alt="Afbeelding van Wetboek 6">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding7')">
+                <img src="/afbeelding/wetboek/7.png" alt="Afbeelding van Wetboek 7">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding8')">
+                <img src="/afbeelding/wetboek/8.png" alt="Afbeelding van Wetboek 8">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding9')">
+                <img src="/afbeelding/wetboek/9.png" alt="Afbeelding van Wetboek 9">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding10')">
+                <img src="/afbeelding/wetboek/10.png" alt="Afbeelding van Wetboek 10">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding11')">
+                <img src="/afbeelding/wetboek/11.png" alt="Afbeelding van Wetboek 11">
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('afbeelding12')">
+                <img src="/afbeelding/wetboek/12.png" alt="Afbeelding van Wetboek 12">
+            </a>
+        </div>
+
+        <!-- Modal voor vergrote afbeelding -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+    </section>
+
+    <script src="scripts.js"></script>
+
+</body>
+</html>
